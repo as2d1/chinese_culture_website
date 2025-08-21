@@ -1,0 +1,40 @@
+/* 侧边栏修复样式 */
+
+/* 确保侧边栏切换按钮在收起状态下仍然可见 */
+.sidebar.collapsed .sidebar-toggle {
+    opacity: 1 !important;
+    visibility: visible !important;
+    width: 30px !important;
+    height: 30px !important;
+    transform: translateX(0) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 1050 !important;
+    transition: all 0.3s ease !important;
+}
+
+/* 当鼠标悬停时添加明显的效果 */
+.sidebar.collapsed .sidebar-toggle:hover {
+    transform: scale(1.2) !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 调整收起状态下的图标 */
+.sidebar.collapsed .sidebar-toggle i {
+    color: white !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: rotate(180deg) !important;
+}
+
+/* 添加提示效果，使切换按钮更明显 */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7); }
+    70% { box-shadow: 0 0 0 8px rgba(255, 193, 7, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0); }
+}
+
+.sidebar.collapsed .sidebar-toggle {
+    animation: pulse 2s infinite;
+}

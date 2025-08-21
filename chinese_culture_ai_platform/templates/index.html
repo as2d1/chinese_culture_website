@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文化智友 - 中国传统文化知识AI问答平台</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/additional-styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/transitions.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/message-formatting.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar-fixes.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar-button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/enhanced-ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modules.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/text-spacing.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+</head>
+<body>
+    <!-- 浮动侧边栏按钮 - 始终可见 -->
+    <div class="sidebar-floating-button" id="sidebar-float-toggle">
+        <i class="fas fa-bars"></i>
+    </div>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <!-- 侧边栏 -->
+            <div id="sidebar" class="col-lg-3 sidebar">
+                <div class="sidebar-toggle" id="sidebar-toggle">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="sidebar-header">
+                    <h1><i class="fas fa-book-open"></i> 文化智友</h1>
+                    <p class="tagline">探索中华文化的智慧之旅</p>
+                </div>
+                
+                <!-- 文化分类导航 -->
+                <div class="category-nav">
+                    <h5>文化分类</h5>
+                    <ul>
+                        <li><a href="#" data-category="history"><i class="fas fa-landmark"></i> 历史朝代</a></li>
+                        <li><a href="#" data-category="festival"><i class="fas fa-calendar-alt"></i> 传统节日</a></li>
+                        <li><a href="#" data-category="literature"><i class="fas fa-feather-alt"></i> 诗词文学</a></li>
+                        <li><a href="#" data-category="art"><i class="fas fa-paint-brush"></i> 传统艺术</a></li>
+                        <li><a href="#" data-category="philosophy"><i class="fas fa-yin-yang"></i> 哲学思想</a></li>
+                        <li><a href="#" data-category="science"><i class="fas fa-flask"></i> 古代科技</a></li>
+                        <li><a href="#" data-category="medicine"><i class="fas fa-mortar-pestle"></i> 传统医学</a></li>
+                        <li><a href="#" data-category="mythology"><i class="fas fa-dragon"></i> 神话传说</a></li>
+                        <li><a href="#" data-category="architecture"><i class="fas fa-torii-gate"></i> 传统建筑</a></li>
+                        <li><a href="#" data-category="craft"><i class="fas fa-hands"></i> 传统手工艺</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 推荐问题 -->
+                <div class="recommended-questions">
+                    <h5>推荐问题</h5>
+                    <div id="recommended-questions-list">
+                        <!-- 这里将由JavaScript动态填充 -->
+                    </div>
+                </div>
+                
+                <!-- 历史记录区域 -->
+                <div class="chat-history-section">
+                    <h5><i class="fas fa-history"></i> 历史记录</h5>
+                    <div id="history-list" class="history-list">
+                        <!-- 这里将由JavaScript动态填充 -->
+                    </div>
+                </div>
+                
+                <!-- 底部信息 -->
+                <div class="sidebar-footer">
+                    <div class="action-buttons">
+                        <button id="clear-btn" class="btn-custom-outline">
+                            <i class="fas fa-broom"></i> 清除对话
+                        </button>
+                        <button id="export-btn" class="btn-custom-secondary">
+                            <i class="fas fa-file-export"></i> 导出对话
+                        </button>
+                    </div>
+                    <p class="copyright">&copy; 2025 文化智友 - 中国传统文化AI助手</p>
+                </div>
+            </div>
+            
+            <!-- 主内容区 -->
+            <div id="main-content" class="col-lg-9 main-content">
+                <!-- 顶部导航栏 -->
+                <div class="chat-header">
+                    <div class="chat-title">
+                        <span id="sidebar-toggle-btn" class="d-lg-none">
+                            <i class="fas fa-bars"></i>
+                        </span>
+                        <i class="fas fa-comments"></i> 当前对话
+                    </div>
+                    <div class="chat-actions">
+                        <button id="theme-toggle" class="btn-icon" title="切换主题">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button id="share-btn" class="btn-icon" title="分享对话">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                        <button id="print-btn" class="btn-icon" title="打印对话">
+                            <i class="fas fa-print"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="chat-container">
+                    <!-- 对话历史 -->
+                    <div id="chat-history" class="chat-history">
+                        <!-- 欢迎信息 -->
+                        <div class="welcome-message animate__animated animate__fadeIn">
+                            <h3><i class="fas fa-book-open"></i> 欢迎来到「文化智友」</h3>
+                            <p>您的中国传统文化知识助手，探索五千年文化智慧</p>
+                        </div>
+                        
+                        <!-- 欢迎消息 -->
+                        <div class="message bot-message animate__animated animate__fadeIn">
+                            <div class="avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <span class="message-name">文化智友</span>
+                                    <span class="message-time">刚刚</span>
+                                </div>
+                                <div class="message-text">
+                                    <p>欢迎来到「文化智友」，您的中国传统文化知识助手！</p>
+                                    <p>我精通中国历史、传统节日、诗词文学、传统艺术、哲学思想、古代科技、传统医学、神话传说、传统建筑和手工艺等领域。</p>
+                                    <p>请问您想了解什么中国传统文化知识呢？</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 输入区域 -->
+                    <div class="input-container">
+                        <form id="question-form">
+                            <div class="input-group">
+                                <span class="input-group-text bg-transparent border-right-0">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                                <input type="text" id="question-input" class="form-control" placeholder="请输入您的问题..." required>
+                                <button type="submit" class="send-btn">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="input-features">
+                            <button id="voice-input" class="btn btn-sm btn-link" title="语音输入">
+                                <i class="fas fa-microphone"></i>
+                            </button>
+                            <button id="take-photo" class="btn btn-sm btn-link" title="拍照识别">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                            <button id="upload-file" class="btn btn-sm btn-link" title="上传文件">
+                                <i class="fas fa-file-upload"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 背景音乐播放器 - 可拖动 -->
+    <div id="music-player-container" class="draggable">
+        <div class="music-header">
+            <span class="music-title">背景音乐</span>
+            <div class="music-controls">
+                <span id="music-minimize"><i class="fas fa-minus"></i></span>
+                <span id="music-expand"><i class="fas fa-expand"></i></span>
+            </div>
+        </div>
+        <div id="music-player" class="aplayer"></div>
+        <div class="music-custom">
+            <button id="add-custom-music" class="btn-custom-outline">
+                <i class="fas fa-music"></i> 自定义音乐
+            </button>
+        </div>
+    </div>
+    
+    <!-- 回到顶部按钮 -->
+    <button id="back-to-top" class="btn-icon">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- 加载动画 -->
+    <div id="loading-overlay" class="d-none">
+        <div class="spinner-border text-light" role="status">
+            <span class="visually-hidden">加载中...</span>
+        </div>
+    </div>
+    
+    <!-- 自定义音乐模态框 -->
+    <div class="modal fade" id="customMusicModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">添加自定义音乐</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="music-name" class="form-label">音乐名称</label>
+                        <input type="text" class="form-control" id="music-name" placeholder="请输入音乐名称">
+                    </div>
+                    <div class="mb-3">
+                        <label for="music-artist" class="form-label">艺术家</label>
+                        <input type="text" class="form-control" id="music-artist" placeholder="请输入艺术家名称">
+                    </div>
+                    <div class="mb-3">
+                        <label for="music-url" class="form-label">音乐链接</label>
+                        <input type="url" class="form-control" id="music-url" placeholder="请输入音乐URL">
+                    </div>
+                    <div class="mb-3">
+                        <label for="music-cover" class="form-label">封面图片 (可选)</label>
+                        <input type="url" class="form-control" id="music-cover" placeholder="请输入封面图片URL">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="save-custom-music">添加</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript库 -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.0.0/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/lib/core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-ui@1.13.2/dist/jquery-ui.min.js"></script>
+    <script src="{{ url_for('static', filename='js/sidebar-reset.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ui-enhancements.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sidebar-fix.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/daily-poem.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/solar-terms.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

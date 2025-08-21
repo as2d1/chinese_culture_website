@@ -1,0 +1,186 @@
+/* 自定义音乐模态框样式 */
+.modal-content {
+    background-color: var(--light-color);
+    border: none;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    border-radius: 15px;
+}
+
+.dark-theme .modal-content {
+    background-color: var(--sidebar-bg);
+    color: var(--text-color);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--accent-color);
+    background-color: rgba(211, 175, 55, 0.1);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border-color);
+}
+
+/* 加载动画改进 */
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#loading-overlay .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.25em;
+}
+
+/* 响应式设计增强 */
+@media (max-width: 992px) {
+    .sidebar {
+        position: fixed;
+        left: 0;
+        width: 80%;
+        z-index: 1050;
+        transform: translateX(-100%);
+        transition: transform var(--transition-speed) ease;
+    }
+    
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        width: 100%;
+    }
+    
+    #music-player-container {
+        width: 250px;
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .message {
+        flex-direction: column;
+    }
+    
+    .avatar {
+        margin-bottom: 10px;
+    }
+    
+    .message-content {
+        width: 100%;
+    }
+    
+    #music-player-container {
+        width: 200px;
+    }
+    
+    #music-player-container.minimized {
+        width: 120px;
+    }
+}
+
+/* 美化UI动效 */
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn-primary, .btn-secondary, .btn-success {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.btn-primary:hover, .btn-secondary:hover, .btn-success:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* 增强型滚动条 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--light-color);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 10px;
+    border: 2px solid var(--light-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+/* 增加中国风元素 */
+.chat-history::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 120px;
+    background-image: url('../images/chinese_corner.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top right;
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.sidebar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    background-image: url('../images/bamboo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+/* 改进侧边栏动画 */
+@keyframes sidebarShow {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.category-nav ul li {
+    animation: sidebarShow 0.5s forwards;
+    opacity: 0;
+}
+
+.category-nav ul li:nth-child(1) { animation-delay: 0.1s; }
+.category-nav ul li:nth-child(2) { animation-delay: 0.2s; }
+.category-nav ul li:nth-child(3) { animation-delay: 0.3s; }
+.category-nav ul li:nth-child(4) { animation-delay: 0.4s; }
+.category-nav ul li:nth-child(5) { animation-delay: 0.5s; }
+.category-nav ul li:nth-child(6) { animation-delay: 0.6s; }
+.category-nav ul li:nth-child(7) { animation-delay: 0.7s; }
+.category-nav ul li:nth-child(8) { animation-delay: 0.8s; }
+.category-nav ul li:nth-child(9) { animation-delay: 0.9s; }
+.category-nav ul li:nth-child(10) { animation-delay: 1s; }

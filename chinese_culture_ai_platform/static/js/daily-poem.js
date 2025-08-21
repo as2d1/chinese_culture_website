@@ -1,0 +1,179 @@
+// 每日诗词功能
+const dailyPoems = [
+    {
+        title: '春晓',
+        content: '春眠不觉晓，处处闻啼鸟。夜来风雨声，花落知多少。',
+        author: '孟浩然',
+        dynasty: '唐',
+        explanation: '描绘了一个春日清晨的美好景象，诗人被鸟叫声唤醒，思索着昨夜风雨吹落了多少花朵。'
+    },
+    {
+        title: '静夜思',
+        content: '床前明月光，疑是地上霜。举头望明月，低头思故乡。',
+        author: '李白',
+        dynasty: '唐',
+        explanation: '诗人夜晚看到地上的月光，勾起对家乡的思念之情，表达了游子对故乡的深深眷恋。'
+    },
+    {
+        title: '登鹳雀楼',
+        content: '白日依山尽，黄河入海流。欲穷千里目，更上一层楼。',
+        author: '王之涣',
+        dynasty: '唐',
+        explanation: '登高望远，描绘了雄伟的自然景观，表达了诗人积极进取、追求更高境界的人生态度。'
+    },
+    {
+        title: '相思',
+        content: '红豆生南国，春来发几枝。愿君多采撷，此物最相思。',
+        author: '王维',
+        dynasty: '唐',
+        explanation: '以红豆象征相思之情，表达了诗人对远方友人的思念和美好祝愿。'
+    },
+    {
+        title: '山行',
+        content: '远上寒山石径斜，白云生处有人家。停车坐爱枫林晚，霜叶红于二月花。',
+        author: '杜牧',
+        dynasty: '唐',
+        explanation: '描绘了秋天山中的美景，尤其是枫叶红于春花的壮观景象，表达了对自然美景的赞美和热爱。'
+    },
+    {
+        title: '望岳',
+        content: '岱宗夫如何？齐鲁青未了。造化钟神秀，阴阳割昏晓。荡胸生曾云，决眦入归鸟。会当凌绝顶，一览众山小。',
+        author: '杜甫',
+        dynasty: '唐',
+        explanation: '描绘泰山雄伟壮观的景象，表达了诗人不畏艰难、勇攀高峰的进取精神。'
+    },
+    {
+        title: '赠汪伦',
+        content: '李白乘舟将欲行，忽闻岸上踏歌声。桃花潭水深千尺，不及汪伦送我情。',
+        author: '李白',
+        dynasty: '唐',
+        explanation: '描述诗人与好友汪伦依依惜别的情景，赞美了朋友真挚深厚的情谊。'
+    },
+    {
+        title: '江雪',
+        content: '千山鸟飞绝，万径人踪灭。孤舟蓑笠翁，独钓寒江雪。',
+        author: '柳宗元',
+        dynasty: '唐',
+        explanation: '描绘了一幅冬日江畔垂钓图，表达了诗人孤高脱俗、远离尘嚣的隐逸情怀。'
+    },
+    {
+        title: '梅花',
+        content: '墙角数枝梅，凌寒独自开。遥知不是雪，为有暗香来。',
+        author: '王安石',
+        dynasty: '宋',
+        explanation: '歌颂了梅花不畏严寒、傲然绽放的品格，象征着坚韧不拔的精神。'
+    },
+    {
+        title: '望天门山',
+        content: '天门中断楚江开，碧水东流至此回。两岸青山相对出，孤帆一片日边来。',
+        author: '李白',
+        dynasty: '唐',
+        explanation: '描绘了长江穿越天门山的壮丽景象，展现了雄浑壮阔的山水画面。'
+    },
+    {
+        title: '饮湖上初晴后雨',
+        content: '水光潋滟晴方好，山色空蒙雨亦奇。欲把西湖比西子，淡妆浓抹总相宜。',
+        author: '苏轼',
+        dynasty: '宋',
+        explanation: '描绘了西湖晴雨两种景色的不同美态，比喻西湖如西施，无论素颜淡妆还是浓妆艳抹都很美。'
+    },
+    {
+        title: '观书有感',
+        content: '半亩方塘一鉴开，天光云影共徘徊。问渠那得清如许？为有源头活水来。',
+        author: '朱熹',
+        dynasty: '宋',
+        explanation: '以小池喻人的心灵，表明保持思想清新活跃的重要性，强调学习要不断有新的思想注入。'
+    },
+    {
+        title: '题西林壁',
+        content: '横看成岭侧成峰，远近高低各不同。不识庐山真面目，只缘身在此山中。',
+        author: '苏轼',
+        dynasty: '宋',
+        explanation: '借庐山的不同视角，阐述了认识事物需要跳出主观局限，从整体和多角度去观察的哲理。'
+    },
+    {
+        title: '秋思',
+        content: '洛阳城里见秋风，欲作家书意万重。复恐匆匆说不尽，行人临发又开封。',
+        author: '张籍',
+        dynasty: '唐',
+        explanation: '描述了思乡之情的迫切，写出了游子对家人思念之深切。'
+    },
+    {
+        title: '浣溪沙·游蕲水清泉寺',
+        content: '山下兰芽短浸溪，松间沙路净无泥。潇潇暮雨子规啼。谁道人生无再少？门前流水尚能西！休将白发唱黄鸡。',
+        author: '苏轼',
+        dynasty: '宋',
+        explanation: '表达了诗人豁达乐观的人生态度，虽然已近暮年但仍保持着积极向上的精神状态。'
+    },
+    {
+        title: '使至塞上',
+        content: '单车欲问边，属国过居延。征蓬出汉塞，归雁入胡天。大漠孤烟直，长河落日圆。萧关逢候骑，都护在燕然。',
+        author: '王维',
+        dynasty: '唐',
+        explanation: '描绘了边塞的壮阔景色和肃穆气氛，表达了诗人对祖国大好河山的热爱。'
+    },
+    {
+        title: '钱塘湖春行',
+        content: '孤山寺北贾亭西，水面初平云脚低。几处早莺争暖树，谁家新燕啄春泥。乱花渐欲迷人眼，浅草才能没马蹄。最爱湖东行不足，绿杨阴里白沙堤。',
+        author: '白居易',
+        dynasty: '唐',
+        explanation: '描绘了西湖春景的绚丽多彩，表达了诗人对春天和自然美景的喜爱与赞美。'
+    },
+    {
+        title: '夜雨寄北',
+        content: '君问归期未有期，巴山夜雨涨秋池。何当共剪西窗烛，却话巴山夜雨时。',
+        author: '李商隐',
+        dynasty: '唐',
+        explanation: '表达了诗人对家乡和亲人的思念之情，以及对未来重聚时光的期盼。'
+    },
+    {
+        title: '送元二使安西',
+        content: '渭城朝雨浥轻尘，客舍青青柳色新。劝君更尽一杯酒，西出阳关无故人。',
+        author: '王维',
+        dynasty: '唐',
+        explanation: '描写了朋友离别时的场景和情感，表达了对远行友人的不舍和美好祝愿。'
+    },
+    {
+        title: '清明',
+        content: '清明时节雨纷纷，路上行人欲断魂。借问酒家何处有？牧童遥指杏花村。',
+        author: '杜牧',
+        dynasty: '唐',
+        explanation: '描绘了清明时节细雨绵绵的景象，以及行人在雨中寻找酒家的情景，表现了清明祭祖的习俗与氛围。'
+    }
+];
+
+// 获取每日诗词
+function getDailyPoem() {
+    // 根据日期生成一个固定的索引，确保同一天显示相同的诗词
+    const today = new Date();
+    const dateStr = `${today.getFullYear()}${today.getMonth()+1}${today.getDate()}`;
+    const index = parseInt(dateStr, 10) % dailyPoems.length;
+    
+    return dailyPoems[index];
+}
+
+// 显示每日诗词
+function showDailyPoem() {
+    const poem = getDailyPoem();
+    
+    // 创建每日诗词卡片
+    const poemCard = `
+        <div class="daily-poem-card animate__animated animate__fadeIn">
+            <div class="daily-poem-title">今日诗词：${poem.title}</div>
+            <div class="daily-poem-content">${poem.content}</div>
+            <div class="daily-poem-author">${poem.dynasty}·${poem.author}</div>
+            <div class="daily-poem-explanation">${poem.explanation}</div>
+        </div>
+    `;
+    
+    // 添加到聊天历史顶部
+    $('#chat-history').prepend(poemCard);
+}
+
+// 页面加载时显示每日诗词
+$(document).ready(function() {
+    // 短暂延迟以确保DOM完全加载
+    setTimeout(() => {
+        showDailyPoem();
+    }, 500);
+});

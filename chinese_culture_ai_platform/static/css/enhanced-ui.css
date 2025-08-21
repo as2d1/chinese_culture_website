@@ -1,0 +1,282 @@
+/* 优化UI配色和界面设计 */
+
+:root {
+    /* 更新配色方案 - 高雅中国风 */
+    --primary-color: #AC1F18;        /* 中国红 - 更加温润古朴 */
+    --secondary-color: #EAD9C4;      /* 米黄色 - 书页质感 */
+    --accent-color: #CFAA62;         /* 古铜金 - 更内敛典雅 */
+    --dark-color: #2D2A2E;           /* 墨黑色 - 接近传统墨色 */
+    --light-color: #F8F4E9;          /* 宣纸色 - 更加柔和 */
+    --text-color: #333333;           /* 文本颜色 */
+    --text-secondary: #666666;       /* 次要文本颜色 */
+    
+    /* 更新界面元素颜色 */
+    --message-bg-user: #E8F0F8;      /* 用户消息背景 - 淡青色，更接近青花瓷风格 */
+    --message-bg-bot: #F4EEE3;       /* 机器人消息背景 - 浅茶色，更温暖 */
+    --sidebar-bg: #F1ECE2;           /* 侧边栏背景 - 温暖的纸张质感 */
+    --header-bg: rgba(248,244,233,0.97); /* 头部背景 - 更加融合 */
+    --input-border: #E0D5C5;         /* 输入框边框 - 更柔和 */
+    --hover-bg: rgba(207, 170, 98, 0.15); /* 悬停背景 - 淡金色 */
+    
+    /* 细化阴影和边框 */
+    --box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    --subtle-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    --border-radius: 12px;
+    --border-color: rgba(207, 170, 98, 0.2);
+    
+    /* 增加质感元素 */
+    --paper-texture: url('../images/paper_texture.png');
+    
+    /* 动画时间 */
+    --transition-speed: 0.3s;
+}
+
+/* 更新暗色主题变量 */
+.dark-theme {
+    --primary-color: #D83C37;        /* 亮红色 */
+    --secondary-color: #3A3634;      /* 深棕色 */
+    --accent-color: #E6C068;         /* 明亮的金色 */
+    --dark-color: #F0EBEB;           /* 暗主题下的亮文字 */
+    --light-color: #1B1918;          /* 暗主题下的深背景 */
+    --text-color: #F0EBEB;
+    --text-secondary: #BDBDBD;
+    --message-bg-user: #2D3748;
+    --message-bg-bot: #272524;
+    --sidebar-bg: #1E1C1B;
+    --header-bg: rgba(27,25,24,0.97);
+    --input-border: #3A3634;
+    --hover-bg: rgba(230, 192, 104, 0.15);
+    --border-color: rgba(230, 192, 104, 0.15);
+}
+
+/* 全局样式优化 */
+body {
+    font-family: "FangSong", "仿宋", "SimSun", "宋体", "Microsoft YaHei", "微软雅黑", sans-serif;
+    color: var(--text-color);
+    background-image: var(--paper-texture), linear-gradient(to bottom, var(--light-color), var(--light-color));
+    background-color: var(--light-color);
+    background-attachment: fixed;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.dark-theme body {
+    background-image: var(--paper-texture), linear-gradient(to bottom, var(--light-color), var(--light-color));
+}
+
+/* 优化侧边栏样式 */
+.sidebar {
+    background-color: var(--sidebar-bg);
+    background-image: var(--paper-texture);
+    box-shadow: var(--box-shadow);
+    padding: 25px;
+}
+
+/* 侧边栏标题样式优化 */
+.sidebar-header h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.sidebar-header .tagline {
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* 分类导航优化 */
+.category-nav h5 {
+    border-left: 3px solid var(--primary-color);
+    padding-left: 10px;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.category-nav ul {
+    padding-left: 10px;
+}
+
+.category-nav ul li {
+    margin-bottom: 10px;
+    transition: transform var(--transition-speed);
+}
+
+.category-nav ul li:hover {
+    transform: translateX(5px);
+}
+
+.category-nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-speed);
+}
+
+.category-nav a:hover {
+    background-color: var(--hover-bg);
+    color: var(--primary-color);
+}
+
+.category-nav a i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+    color: var(--accent-color);
+}
+
+/* 主内容区优化 */
+.chat-container {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: var(--border-radius);
+    box-shadow: var(--subtle-shadow);
+    margin: 0 10px;
+}
+
+.dark-theme .chat-container {
+    background-color: rgba(30, 28, 27, 0.8);
+}
+
+/* 消息样式优化 */
+.message {
+    margin-bottom: 28px;
+}
+
+.message-content {
+    border-radius: var(--border-radius);
+    box-shadow: var(--subtle-shadow);
+}
+
+/* 输入区域优化 */
+.input-container {
+    background-color: var(--header-bg);
+    padding: 20px;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+
+#question-input {
+    border-color: var(--input-border);
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: var(--subtle-shadow);
+    border-radius: 25px;
+    padding: 12px 50px 12px 45px;
+}
+
+.dark-theme #question-input {
+    background-color: rgba(45, 42, 46, 0.8);
+    color: var(--text-color);
+}
+
+/* 优化按钮样式 */
+.btn-custom {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+}
+
+.btn-custom:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 历史记录项优化 */
+.history-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: all var(--transition-speed);
+}
+
+.dark-theme .history-item {
+    background-color: rgba(45, 42, 46, 0.3);
+}
+
+.history-item:hover {
+    background-color: var(--hover-bg);
+    transform: translateY(-2px);
+}
+
+.history-item.active {
+    border-left: 3px solid var(--primary-color);
+    background-color: var(--hover-bg);
+}
+
+/* 欢迎消息特殊样式 */
+.welcome-message {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 30px;
+    background-color: rgba(207, 170, 98, 0.1);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+}
+
+/* 每日诗词卡片样式 */
+.daily-poem-card {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--accent-color);
+    padding: 15px;
+    margin: 20px 0;
+    box-shadow: var(--subtle-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.dark-theme .daily-poem-card {
+    background-color: rgba(45, 42, 46, 0.5);
+}
+
+.daily-poem-card::before {
+    content: '"';
+    position: absolute;
+    top: -15px;
+    left: 10px;
+    font-size: 60px;
+    color: rgba(207, 170, 98, 0.2);
+    font-family: serif;
+}
+
+.daily-poem-title {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.daily-poem-content {
+    font-family: "KaiTi", "楷体", serif;
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.daily-poem-author {
+    text-align: right;
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.daily-poem-explanation {
+    font-size: 14px;
+    color: var(--text-secondary);
+    border-top: 1px dashed var(--border-color);
+    padding-top: 10px;
+    margin-top: 5px;
+}

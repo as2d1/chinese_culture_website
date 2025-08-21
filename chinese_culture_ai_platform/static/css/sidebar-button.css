@@ -1,0 +1,62 @@
+.sidebar-floating-button {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--accent-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9999;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    animation: pulse-float 2s infinite;
+}
+
+.sidebar-floating-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.sidebar-floating-button i {
+    font-size: 20px;
+}
+
+@keyframes pulse-float {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* 在移动设备上调整按钮位置和大小 */
+@media (max-width: 768px) {
+    .sidebar-floating-button {
+        top: 10px;
+        left: 10px;
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* 暗色主题适应 */
+.dark-theme .sidebar-floating-button {
+    background-color: var(--primary-color);
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+}
+
+.dark-theme .sidebar-floating-button:hover {
+    box-shadow: 0 6px 12px rgba(255, 255, 255, 0.3);
+}

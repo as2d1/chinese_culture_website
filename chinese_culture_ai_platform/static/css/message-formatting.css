@@ -1,0 +1,127 @@
+/* 消息文本格式化增强样式 */
+.message-text {
+    /* 基本文本格式 */
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-color);
+}
+
+/* 段落样式增强 */
+.message-text p {
+    margin-bottom: 8px;  /* 减小段落间距 */
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+/* 标题样式 */
+.message-text h1, 
+.message-text h2, 
+.message-text h3, 
+.message-text h4, 
+.message-text h5, 
+.message-text h6 {
+    margin-top: 12px;
+    margin-bottom: 6px;
+    color: var(--primary-color);
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+/* 列表样式 */
+.message-text ul, 
+.message-text ol {
+    margin-bottom: 10px;
+    padding-left: 25px;
+}
+
+.message-text li {
+    margin-bottom: 5px;
+}
+
+/* 代码块样式 */
+.message-text pre {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 8px;
+    overflow-x: auto;
+    white-space: pre;
+}
+
+.dark-theme .message-text pre {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.message-text code {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+.dark-theme .message-text code {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 引用样式 */
+.message-text blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding-left: 15px;
+    color: var(--text-secondary);
+    margin: 15px 0;
+    font-style: italic;
+}
+
+/* 表格样式 */
+.message-text table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+.message-text th,
+.message-text td {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.message-text th {
+    background-color: rgba(0, 0, 0, 0.03);
+    font-weight: bold;
+}
+
+.dark-theme .message-text th {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* 水平线样式 */
+.message-text hr {
+    height: 1px;
+    background-color: var(--border-color);
+    border: none;
+    margin: 20px 0;
+}
+
+/* 链接样式 */
+.message-text a {
+    color: var(--accent-color);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--accent-color);
+    transition: all 0.2s ease;
+}
+
+.message-text a:hover {
+    color: var(--primary-color);
+    border-bottom-style: solid;
+}
+
+/* 图片样式 */
+.message-text img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin: 10px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
