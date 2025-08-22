@@ -1,0 +1,109 @@
+/*
+ * extreme-compact-bubbles.css
+ * 极度紧凑的消息气泡样式，特别针对短消息的情况
+ */
+
+/* 消息内容容器的基本样式 */
+.message-content {
+    padding: 3px 10px 3px 10px !important;
+}
+
+/* 针对所有消息文本 */
+.message-text {
+    line-height: 1.2 !important;
+}
+
+/* 消息文本中的段落 */
+.message-text p {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 消息头部处理 */
+.message-header {
+    margin-bottom: 1px !important;
+    padding-bottom: 1px !important;
+    border-bottom: none !important; /* 移除底部边框 */
+}
+
+/* 短消息的特殊处理 */
+.short-message .message-content {
+    padding: 1px 8px !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* 极短消息的特殊处理（5个字符或更少） */
+.ultra-compact-message .message-content {
+    padding: 0px 6px !important;
+}
+
+.ultra-compact-message .message-header {
+    display: flex !important;
+    align-items: center !important;
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.ultra-compact-message .message-text {
+    display: inline-block !important;
+}
+
+.short-message .message-text {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* 移除单行短消息的多余样式 */
+.short-message .message-text p {
+    display: inline !important;
+    line-height: 1.1 !important;
+}
+
+/* 紧凑布局时调整头像位置 */
+.short-message .avatar {
+    margin-top: 3px !important;
+}
+
+/* 调整消息间距 */
+.message {
+    margin-bottom: 8px !important;
+}
+
+/* 在移动设备上进一步紧凑 */
+@media (max-width: 768px) {
+    .message-content {
+        padding: 2px 8px !important;
+    }
+    
+    .short-message .message-content {
+        padding: 1px 6px !important;
+    }
+    
+    .message {
+        margin-bottom: 6px !important;
+    }
+}
+
+/* 针对超短消息的极端紧凑样式 - 少于5个字符 */
+.message-content:has(.message-text:only-child p:only-child:not(:empty):not(:has(*))) {
+    padding: 1px 6px !important;
+}
+
+/* 对于只有一个单词的消息进行特殊处理 */
+.message-text:has(p:only-child:not(:has(*))) {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* 移除markdown渲染后可能产生的额外间距 */
+.message-text > *:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+.message-text > *:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}

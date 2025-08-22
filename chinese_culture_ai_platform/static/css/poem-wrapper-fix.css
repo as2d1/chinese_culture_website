@@ -1,0 +1,47 @@
+/* 额外的每日诗词容器样式 */
+
+/* 为诗词添加包装器确保完整显示 */
+.daily-poem-wrapper {
+    width: 100%;
+    margin-bottom: 20px;
+    display: block;
+    overflow: visible;
+    height: auto;
+}
+
+/* 确保诗词卡片能完全展示 */
+.daily-poem-card {
+    width: 100%;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    display: block !important;
+}
+
+/* 为非常长的诗词增加一些额外的样式 */
+.daily-poem-content {
+    white-space: pre-wrap !important; /* 保持原始的换行 */
+    word-break: normal;
+    word-wrap: break-word;
+    text-overflow: clip;
+    overflow: visible !important;
+}
+
+/* 确保解释完全显示 */
+.daily-poem-explanation {
+    white-space: normal !important;
+    word-wrap: break-word;
+    overflow: visible !important;
+}
+
+/* 修正某些长诗的显示问题 */
+@media (min-width: 768px) {
+    .daily-poem-card {
+        padding: 20px !important;
+    }
+    
+    .daily-poem-content {
+        font-size: 16px;
+        line-height: 2;
+    }
+}

@@ -1,0 +1,106 @@
+/* 历史记录显示格式优化 */
+
+/* 历史记录列表容器样式 */
+.history-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding-right: 5px;
+}
+
+/* 历史记录项样式 */
+.history-item {
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+
+/* 鼠标悬停效果 */
+.history-item:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateX(3px);
+    border-left-color: var(--accent-color);
+}
+
+/* 激活状态 */
+.history-item.active {
+    border-left-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* 历史标题样式 */
+.history-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--dark-color);
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 20px; /* 为删除按钮留出空间 */
+}
+
+/* 历史日期样式 */
+.history-date {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* 删除按钮 */
+.history-delete {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s;
+    color: var(--text-secondary);
+}
+
+.history-item:hover .history-delete {
+    opacity: 1;
+}
+
+.history-delete:hover {
+    color: var(--primary-color);
+    background-color: rgba(0,0,0,0.05);
+}
+
+/* 暗色主题适配 */
+.dark-theme .history-item {
+    background: rgba(45, 45, 45, 0.7);
+}
+
+.dark-theme .history-item:hover {
+    background: rgba(50, 50, 50, 0.9);
+}
+
+.dark-theme .history-item.active {
+    background: rgba(55, 55, 55, 0.95);
+}
+
+.dark-theme .history-title {
+    color: #eaeaea;
+}
+
+.dark-theme .history-date {
+    color: #aaa;
+}
+
+/* 无历史记录提示 */
+.empty-history {
+    text-align: center;
+    padding: 20px 0;
+    color: var(--text-secondary);
+    font-style: italic;
+}

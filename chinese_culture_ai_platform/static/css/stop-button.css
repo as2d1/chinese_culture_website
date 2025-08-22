@@ -1,0 +1,47 @@
+/* 样式用于停止按钮 */
+.stop-button {
+    display: none;
+    position: fixed;
+    bottom: 130px;
+    right: 20px;
+    width: 60px; /* 增大按钮尺寸 */
+    height: 60px; /* 增大按钮尺寸 */
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    /* 使用flex布局代替text-align和line-height来使图标完美居中 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4); /* 增强阴影效果 */
+    cursor: pointer;
+    z-index: 10000; /* 确保它在最上层 */
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+    opacity: 1;
+    pointer-events: auto; /* 确保可点击 */
+    border: 2px solid white; /* 添加边框增强可见性 */
+}
+
+.stop-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(139, 0, 0, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(139, 0, 0, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(139, 0, 0, 0);
+    }
+}
+
+.stop-button i {
+    font-size: 24px; /* 调大图标尺寸 */
+    display: block; /* 确保图标正确渲染 */
+    line-height: 1; /* 重置行高 */
+}

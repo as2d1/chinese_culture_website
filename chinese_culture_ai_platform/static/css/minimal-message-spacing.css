@@ -1,0 +1,61 @@
+/**
+ * minimal-message-spacing.css
+ * 为消息气泡提供最小空白的样式
+ */
+
+/* 应用于所有消息文本 */
+.message-text p,
+.message-text div,
+.message-text span {
+    line-height: 1.3 !important; /* 减少行高 */
+}
+
+/* 移除边距较大的段落元素 */
+.message-text h1, .message-text h2, .message-text h3,
+.message-text h4, .message-text h5, .message-text h6 {
+    margin-top: 5px !important;
+    margin-bottom: 2px !important;
+}
+
+/* 针对"你好"这样的单行短消息应用特殊样式 */
+.message-text:has(p:only-child:not(:has(*))) {
+    line-height: 1 !important; /* 最小行高 */
+}
+
+/* 消息头部进一步压缩 */
+.message-header {
+    padding-bottom: 2px !important;
+    margin-bottom: 2px !important;
+}
+
+/* 针对极短消息的特殊调整 */
+.ultra-compact-message .message-content {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+}
+
+.ultra-compact-message .message-header {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.ultra-compact-message .message-text {
+    padding: 0 !important;
+}
+
+/* 针对只有一个emoji或非常短文本的消息 */
+.message:has(.message-text p:only-child:empty),
+.message:has(.message-text p:only-child:not(:has(*)):not(:empty):not([class]):not([id])) {
+    margin-bottom: 6px !important;
+}
+
+.ultra-compact-message .avatar {
+    margin-top: 4px !important; /* 调整头像位置 */
+}
+
+/* 避免超短消息的过度挤压 */
+.ultra-compact-message .message-content {
+    min-height: 24px !important; /* 确保至少有一个最小高度 */
+    justify-content: center !important;
+}

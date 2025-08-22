@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文化智友 - 每日文化</title>
+    <meta name="description" content="每日诗词与二十四节气卡片，进入文化智友探索中华传统文化的智慧之旅。">
+    <meta name="theme-color" content="#8B0000">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
+    <meta property="og:title" content="文化智友 - 每日文化">
+    <meta property="og:description" content="每日诗词与节气，轻盈动效，快速进入AI文化助手。">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_CN">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📜</text></svg>">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/welcome-page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chinese-decorations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/solar-term-enhancements.css') }}">
+    <!-- 禁用滚动条fix，使用内联样式代替 -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/welcome-scrollbar-fix.css') }}"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dark-theme-enhanced.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/critical-fixes.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+    <style>
+        /* 主容器滚动样式 */
+        .welcome-container {
+            max-height: 100vh;
+            padding-bottom: 20px;
+            overflow-y: auto; /* 只有主容器保留滚动功能 */
+            justify-content: flex-start;
+            display: flex;
+            flex-direction: column;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(139, 0, 0, 0.5) rgba(212, 175, 128, 0.1);
+        }
+        
+        /* 主容器滚动条样式 */
+        .welcome-container::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        .welcome-container::-webkit-scrollbar-track {
+            background: rgba(212, 175, 128, 0.1);
+            border-radius: 10px;
+        }
+        
+        .welcome-container::-webkit-scrollbar-thumb {
+            background-color: rgba(139, 0, 0, 0.5);
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 卡片样式 - 确保大小一致 */
+        .welcome-section {
+            height: auto;
+            margin: 0 10px;
+            max-height: none;
+            min-height: 350px; /* 设置最小高度，确保两个卡片高度一致 */
+        }
+        
+        /* 卡片内容样式 */
+        .section-content {
+            flex: 1; /* 占满剩余空间 */
+            padding: 15px;
+            overflow: visible;
+        }
+        
+        /* 文化内容容器样式 */
+        .cultural-content {
+            align-items: stretch; /* 拉伸子元素使其填充容器 */
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        /* 减小页面元素间距 */
+        .welcome-header {
+            margin-bottom: 10px;
+        }
+        
+        .cultural-content {
+            gap: 20px;
+        }
+        
+        /* 空间占位符 */
+        .spacer {
+            height: 20px; /* 减少空间，紧凑布局 */
+            width: 100%;
+        }
+        
+        /* 调整按钮位置 */
+        .enter-button-container {
+            margin-top: 15px; /* 减少上边距 */
+            margin-bottom: 15px;
+            position: relative; /* 相对定位 */
+            z-index: 100;
+            flex-shrink: 0; /* 防止按钮被挤压 */
+        }
+        
+        /* 高亮"点击进入"按钮 */
+        .enter-button {
+            animation: pulse-button 3s infinite ease-in-out;
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.7);
+            transform: scale(1.05); /* 稍微放大按钮 */
+            backdrop-filter: blur(5px); /* 增加模糊效果 */
+            -webkit-backdrop-filter: blur(5px);
+        }
+        
+        @keyframes pulse-button {
+            0% {
+                box-shadow: 0 0 10px rgba(139, 0, 0, 0.7);
+                transform: scale(1.05);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(139, 0, 0, 0.9);
+                transform: scale(1.08);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(139, 0, 0, 0.7);
+                transform: scale(1.05);
+            }
+        }
+        
+        /* 添加点击效果 */
+        .enter-button:active {
+            transform: scale(0.98) !important;
+            box-shadow: 0 0 5px rgba(139, 0, 0, 0.8) !important;
+            transition: all 0.1s ease !important;
+        }
+    </style>
+</head>
+<body class="welcome-page">
+    <div class="welcome-container">
+        <header class="welcome-header animate__animated animate__fadeIn">
+            <h1><i class="fas fa-book-open"></i> 文化智友</h1>
+            <p>探索中华传统文化的智慧之旅</p>
+        </header>
+        
+        <div class="cultural-content">
+            <!-- 每日诗词部分 -->
+            <div class="welcome-section poem-section animate__animated animate__fadeInLeft">
+                <div class="section-header">
+                    <i class="fas fa-feather-alt"></i> 每日诗词
+                </div>
+                <div id="welcome-poem-card" class="section-content">
+                    <!-- 由JS动态填充 -->
+                </div>
+            </div>
+            
+            <!-- 节气部分 -->
+            <div class="welcome-section solar-term-section animate__animated animate__fadeInRight">
+                <div class="section-header">
+                    <i class="fas fa-sun"></i> 二十四节气
+                </div>
+                <div id="welcome-solar-term" class="section-content">
+                    <!-- 由JS动态填充 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 空间占位符 -->
+        <div class="spacer"></div>
+        
+        <!-- 进入按钮 -->
+        <div class="enter-button-container animate__animated animate__fadeInUp animate__delay-1s">
+            <a href="{{ url_for('index') }}" class="enter-button">
+                <span>点击进入</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        
+        <!-- 底部信息 -->
+        <footer class="welcome-footer animate__animated animate__fadeIn animate__delay-1s">
+            <p>&copy; 2025 文化智友 - 中国传统文化AI助手</p>
+        </footer>
+    </div>
+    
+    <!-- JavaScript库 -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/solar-terms-data.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/solar-terms.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/poem-data.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/welcome-page.js') }}"></script>
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/sw.js');
+        });
+    }
+    </script>
+</body>
+</html>

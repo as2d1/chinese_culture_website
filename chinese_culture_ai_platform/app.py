@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, Response
+from flask import Flask, render_template, request, jsonify, Response, make_response, send_from_directory
 import json
 import requests
 from flask_cors import CORS
@@ -34,8 +34,13 @@ CULTURE_PROMPT = """你是一个专注于中国传统文化知识的AI助手，�
 在回答问题时，适当引用古籍原文或名人名言，增加回答的权威性和文化底蕴。"""
 
 @app.route('/')
+def welcome():
+    """渲染欢迎页面"""
+    return render_template('welcome.html')
+
+@app.route('/chat')
 def index():
-    """渲染主页"""
+    """渲染主聊天页面"""
     return render_template('index.html')
 
 @app.route('/api/ask', methods=['GET', 'POST'])
@@ -286,6 +291,50 @@ def recommended_questions():
         "中国传统戏曲有哪些主要剧种？它们各有什么特点？"
     ]
     return jsonify({"questions": questions})
+
+@app.route('/sitemap.xml')
+def sitemap():
+        # 动态生成包含绝对地址的 sitemap
+        base = request.url_root.rstrip('/')
+        xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>{base}/</loc>
+        <changefreq>daily</changefreq>
+    </url>
+    <url>
+        <loc>{base}/chat</loc>
+        <changefreq>daily</changefreq>
+    </url>
+</urlset>
+"""
+        resp = make_response(xml)
+        resp.headers['Content-Type'] = 'application/xml; charset=utf-8'
+        return resp
+
+@app.route('/sw.js')
+def service_worker():
+        # 将 Service Worker 以根路径提供，确保作用域覆盖整个站点
+        return send_from_directory('static', 'sw.js', mimetype='application/javascript')
+
+# 基础SEO：robots.txt 与缓存优化（必须在 app.run 之前注册）
+@app.after_request
+def add_cache_headers(response):
+    # 为静态资源添加较长缓存
+    if request.path.startswith('/static/'):
+        response.headers['Cache-Control'] = 'public, max-age=604800'
+    return response
+
+@app.route('/robots.txt')
+def robots_txt():
+    base = request.url_root.rstrip('/')
+    content = f"""User-agent: *
+Allow: /
+Sitemap: {base}/sitemap.xml
+"""
+    resp = make_response(content)
+    resp.headers['Content-Type'] = 'text/plain; charset=utf-8'
+    return resp
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

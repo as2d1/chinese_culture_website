@@ -1,0 +1,48 @@
+/* 增强版夜间模式 */
+.dark-theme {
+    /* 优化夜间模式颜色 */
+    --primary-color: #c75f5f;        /* 更柔和的红色 */
+    --secondary-color: #3a3738;      /* 略微带红的深色 */
+    --accent-color: #e0b84e;         /* 更温暖的金色 */
+    --dark-color: #f0f0f0;           /* 更明亮的文字颜色 */
+    --light-color: #1e1e1e;          /* 更深的背景色，减少对眼睛刺激 */
+    --text-color: #e8e8e8;           /* 更柔和的文字颜色 */
+    --text-secondary: #b8b8b8;       /* 更柔和的次要文字颜色 */
+    
+    /* 优化界面元素颜色 */
+    --message-bg-user: #2b3548;      /* 更深沉的用户消息背景 */
+    --message-bg-bot: #1e2430;       /* 更深沉的机器人消息背景 */
+    --sidebar-bg: #1a1a1a;           /* 更深沉的侧边栏背景 */
+    --scrollbar-thumb: #4a4a4a;      /* 更明显的滚动条 */
+    --header-bg: rgba(24,24,24,0.97); /* 更深的头部背景 */
+    --input-border: #444;            /* 输入框边框 */
+    --hover-bg: rgba(224, 184, 78, 0.15); /* 更温暖的悬停背景 */
+    --border-color: rgba(255,255,255,0.15); /* 更明显的边框 */
+    
+    /* 添加夜间模式下的阴影效果 */
+    --box-shadow: 0 3px 15px rgba(0,0,0,0.25);
+}
+
+/* 夜间模式下的消息样式增强 */
+.dark-theme .message-text {
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* 夜间模式下的按钮增强 */
+.dark-theme .btn, 
+.dark-theme .enter-button {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* 夜间模式下的卡片增强 */
+.dark-theme .card, 
+.dark-theme .welcome-section, 
+.dark-theme .sidebar,
+.dark-theme .daily-poem-card {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* 夜间模式下的输入框增强 */
+.dark-theme .input-group {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}

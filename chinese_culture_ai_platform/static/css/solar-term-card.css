@@ -1,0 +1,147 @@
+/* 聊天页面节气卡片样式 */
+.solar-term-card {
+    background-image: url('../images/seasons_bg.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    color: var(--dark-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.solar-term-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, transparent 50%, rgba(255, 255, 255, 0.5));
+    z-index: 0;
+}
+
+.solar-term-name {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    font-family: "STKaiti", "KaiTi", serif;
+    position: relative;
+    z-index: 1;
+    animation: floatAnimation 3s ease-in-out infinite;
+}
+
+.solar-term-date {
+    text-align: center;
+    color: var(--accent-color);
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.solar-term-date .countdown {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    margin-left: 8px;
+    animation: pulse 2s infinite;
+}
+
+.solar-term-description {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    text-indent: 2em;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    z-index: 1;
+}
+
+.solar-term-customs {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+.solar-term-customs strong {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.solar-term-card .custom-tag {
+    display: inline-block;
+    padding: 5px 12px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin: 0 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+}
+
+.solar-term-card .custom-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(139, 0, 0, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(139, 0, 0, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(139, 0, 0, 0);
+    }
+}
+
+@keyframes floatAnimation {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

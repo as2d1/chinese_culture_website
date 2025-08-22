@@ -1,0 +1,41 @@
+/* 已中断响应的动画处理 */
+
+/* 确保中断响应的消息停止动画但不消失 */
+.response-interrupted {
+    /* 保留所有内容，但停止动画 */
+    animation-play-state: paused !important;
+    -webkit-animation-play-state: paused !important;
+}
+
+/* 确保中断响应提示不触发新的动画 */
+.response-stopped {
+    animation: none !important;
+    transition: none !important;
+    font-style: italic;
+    color: #777777 !important;
+}
+
+/* 确保机器人消息字体与用户消息一致 */
+#chat-history .bot-message .message-text,
+#chat-history .user-message .message-text {
+    font-family: "FangSong", "仿宋", "SimSun", "宋体", "Microsoft YaHei", "微软雅黑", sans-serif !important;
+    color: var(--text-color) !important;
+}
+
+/* 保留欢迎消息的特殊样式 */
+#chat-history .bot-message:first-child .message-text p:first-child {
+    font-family: "STXingkai", "华文行楷", "STKaiti", "楷体", KaiTi, serif !important;
+    color: var(--primary-color) !important;
+}
+
+/* 修复中断后可能的闪烁问题 */
+.bot-message.response-interrupted::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    pointer-events: none;
+}

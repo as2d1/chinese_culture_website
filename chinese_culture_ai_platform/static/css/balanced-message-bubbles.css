@@ -1,0 +1,155 @@
+/**
+ * balanced-message-bubbles.css
+ * 平衡且美观的消息气泡样式，既不过大也不过小
+ */
+
+/* 消息气泡增强样式 */
+.message-content {
+    border: 1px solid rgba(0, 0, 0, 0.05) !important; /* 添加细微边框增强立体感 */
+}
+
+.user-message .message-content {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important; /* 轻微阴影增强视觉效果 */
+}
+
+.bot-message .message-content {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 暗色主题适配 */
+.dark-theme .message-content {
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark-theme .user-message .message-content {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.dark-theme .bot-message .message-content {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 重置之前可能过于极端的设置 */
+.message-content {
+    padding: 10px 15px 10px 15px !important; /* 恢复适当的内边距 */
+    min-height: auto !important;
+    transition: all 0.25s ease !important; /* 平滑过渡效果 */
+    will-change: transform, box-shadow !important; /* 优化动画性能 */
+}
+
+/* 鼠标悬停时的微小效果增强 */
+.message:hover .message-content {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 消息间距调整为更平衡的值 */
+.message {
+    margin-bottom: 16px !important;
+}
+
+/* 消息头部适当间距 */
+.message-header {
+    margin-bottom: 6px !important;
+    padding-bottom: 4px !important;
+    border-bottom: 1px dashed var(--border-color) !important;
+}
+
+/* 消息文本使用更舒适的行高和间距 */
+.message-text {
+    line-height: 1.5 !important;
+    letter-spacing: 0.2px !important; /* 添加轻微的字间距增强可读性 */
+}
+
+/* 普通段落间距 */
+.message-text p {
+    margin-bottom: 6px !important;
+}
+
+.message-text p:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* 优化列表显示 */
+.message-text ul, .message-text ol {
+    margin-top: 5px !important;
+    margin-bottom: 8px !important;
+}
+
+/* 优化引用块显示 */
+.message-text blockquote {
+    padding-left: 10px !important;
+    margin: 8px 0 !important;
+}
+
+/* 为短消息中的段落特殊处理，使其垂直居中 */
+.short-message .message-text p {
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    min-height: 24px !important;
+    padding: 0 2px !important; /* 添加少量左右内边距，使文字不贴边 */
+    justify-content: center !important; /* 文字居中，更美观 */
+}
+
+/* 短消息的平衡样式 - 不会太紧凑也不会太松散 */
+.short-message .message-content {
+    padding: 8px 20px !important; /* 增加左右内边距，使短消息气泡看起来更宽松 */
+    min-width: 80px !important; /* 设置最小宽度，确保短消息气泡不会太窄 */
+}
+
+/* 特短消息(5个字符或更少)样式 */
+.very-short-message .message-content {
+    padding: 8px 24px !important; /* 进一步增加左右内边距 */
+    min-width: 90px !important; /* 更大的最小宽度 */
+}
+
+/* 中等长度消息(11-20个字符)样式 */
+.medium-message .message-content {
+    padding: 8px 18px !important; /* 适中的内边距 */
+    min-width: auto !important; /* 自动宽度 */
+}
+
+/* 为短消息添加适当的最小高度，确保美观 */
+.short-message .message-text {
+    min-height: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* 头像对齐 */
+.avatar {
+    align-self: flex-start;
+    margin-top: 6px !important;
+}
+
+/* 覆盖之前过于紧凑的样式 */
+.ultra-compact-message .message-content {
+    padding: 8px 12px !important;
+    min-height: auto !important;
+}
+
+.ultra-compact-message .message-header {
+    margin-bottom: 5px !important;
+    padding-bottom: 3px !important;
+    border-bottom: 1px dashed var(--border-color) !important;
+}
+
+/* 移动端的平衡调整 */
+@media (max-width: 768px) {
+    .message-content {
+        padding: 8px 12px !important;
+    }
+    
+    .message {
+        margin-bottom: 14px !important;
+    }
+    
+    .short-message .message-content {
+        padding: 6px 16px !important; /* 增加左右内边距，保持气泡宽度 */
+    }
+    
+    .very-short-message .message-content {
+        padding: 5px 18px !important; /* 为特短消息提供更多的左右空间 */
+    }
+}

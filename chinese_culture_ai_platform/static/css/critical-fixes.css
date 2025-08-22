@@ -1,0 +1,41 @@
+/* 欢迎页面和对话界面的修复补丁 */
+
+/* 欢迎页面滚动条强制显示补丁 */
+html body .welcome-section .section-content {
+    max-height: 60vh !important;
+    overflow-y: auto !important;
+}
+
+/* 确保欢迎页面的滚动条可见 */
+html body .welcome-section .section-content::-webkit-scrollbar {
+    width: 8px !important;
+    display: block !important;
+    visibility: visible !important;
+}
+
+html body .welcome-section .section-content::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color) !important;
+    border-radius: 10px !important;
+    visibility: visible !important;
+    display: block !important;
+}
+
+/* 对话界面欢迎词样式增强 */
+html body .bot-message:first-of-type .message-text p:first-child {
+    font-family: "STXingkai", "华文行楷", "STKaiti", "楷体", KaiTi, serif !important;
+    font-size: 1.35em !important;
+    color: var(--primary-color) !important;
+    letter-spacing: 1px !important;
+}
+
+html body .bot-message:first-of-type .message-text p:nth-child(2) {
+    font-family: "STSong", "华文宋体", "SimSun", "宋体", serif !important;
+    font-size: 1.05em !important;
+    line-height: 1.8 !important;
+    letter-spacing: 0.5px !important;
+}
+
+html body .bot-message:first-of-type .message-text p:last-child {
+    font-family: "Microsoft YaHei", "微软雅黑", sans-serif !important;
+    margin-top: 15px !important;
+}

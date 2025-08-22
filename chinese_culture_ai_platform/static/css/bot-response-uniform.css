@@ -1,0 +1,49 @@
+/* 统一智能体回复的字体样式 */
+
+/* 确保机器人消息与用户消息使用相同的字体样式 */
+.bot-message .message-text {
+    font-family: "FangSong", "仿宋", "SimSun", "宋体", "Microsoft YaHei", "微软雅黑", sans-serif !important;
+    line-height: 1.7;
+    color: var(--text-color) !important;
+}
+
+/* 欢迎消息除外，保留其特殊样式 */
+.bot-message:first-child .message-text p:first-child {
+    font-family: "STXingkai", "华文行楷", "STKaiti", "楷体", KaiTi, serif !important;
+    color: var(--primary-color) !important; /* 保持欢迎消息标题颜色 */
+}
+
+/* 确保所有机器人消息与用户消息格式一致 */
+.bot-message .message-text p,
+.bot-message .message-text li,
+.bot-message .message-text span {
+    font-family: "FangSong", "仿宋", "SimSun", "宋体", "Microsoft YaHei", "微软雅黑", sans-serif !important;
+}
+
+/* 机器人消息中的中断提示样式 */
+.bot-message .response-stopped {
+    font-style: italic;
+    color: #777777 !important;
+    margin-top: 8px;
+}
+
+/* 已中断消息的动画停止处理 */
+.response-interrupted {
+    /* 保留消息，但冻结任何动画效果 */
+    animation-play-state: paused !important;
+    -webkit-animation-play-state: paused !important;
+}
+
+.response-interrupted * {
+    /* 冻结所有子元素的动画 */
+    animation-play-state: paused !important;
+    -webkit-animation-play-state: paused !important;
+    transition: none !important;
+}
+
+/* 确保中断后的响应停止不会被新动画覆盖 */
+.message.bot-message.response-interrupted,
+.message.bot-message.response-interrupted * {
+    animation: none !important;
+    transition: none !important;
+}

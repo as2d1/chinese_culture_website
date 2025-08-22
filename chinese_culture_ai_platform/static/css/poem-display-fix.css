@@ -1,0 +1,57 @@
+/* 确保每日诗词完全显示并修复布局问题 */
+.daily-poem-card {
+  min-height: fit-content;
+  height: auto !important;
+  max-height: none !important;
+  display: block !important;
+  overflow: visible;
+  margin-bottom: 30px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+/* 确保每日诗词的内容不会被截断 */
+.daily-poem-content,
+.daily-poem-explanation {
+  overflow: visible;
+  white-space: normal;
+  word-wrap: break-word;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 为长诗词提供更好的显示 */
+.daily-poem-content {
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+
+.daily-poem-explanation {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  border-top: 1px dashed var(--border-color);
+  padding-top: 10px;
+  margin-top: 8px;
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .daily-poem-card {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .daily-poem-content {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  
+  .daily-poem-explanation {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+}

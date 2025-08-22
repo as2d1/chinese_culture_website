@@ -1,0 +1,82 @@
+/* 欢迎消息增强样式 */
+.welcome-message {
+    text-align: center;
+    padding: 30px;
+    margin: 15px 10px 30px;
+    background: linear-gradient(135deg, rgba(207, 170, 98, 0.08), rgba(153, 51, 51, 0.06));
+    border-radius: 15px;
+    border: 1px solid rgba(207, 170, 98, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-message::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #e8c98d, #c1894a, #e8c98d);
+    z-index: 1;
+}
+
+.welcome-message h3 {
+    font-family: "华文行楷", "楷体", "STKaiti", serif;
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #8b4513;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    letter-spacing: 2px;
+}
+
+.welcome-message h3 i {
+    color: #c1894a;
+    margin-right: 8px;
+    transform: rotate(-5deg);
+    display: inline-block;
+}
+
+.welcome-message p {
+    font-family: "仿宋", "FangSong", "STFangsong", serif;
+    font-size: 18px;
+    color: #555;
+    margin: 15px 0;
+    line-height: 1.5;
+}
+
+.welcome-message::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    width: 80px;
+    height: 80px;
+    background-image: url('/static/images/chinese-ornament.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.15;
+    transform: rotate(15deg);
+}
+
+/* 在小屏幕上的响应式调整 */
+@media (max-width: 768px) {
+    .welcome-message {
+        padding: 20px;
+        margin: 10px 5px 20px;
+    }
+    
+    .welcome-message h3 {
+        font-size: 22px;
+    }
+    
+    .welcome-message p {
+        font-size: 16px;
+    }
+}
+
+/* 为欢迎消息添加动画效果 */
+.welcome-message.animate__fadeIn {
+    animation-duration: 1.2s;
+}

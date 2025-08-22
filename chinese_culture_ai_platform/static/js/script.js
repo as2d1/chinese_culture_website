@@ -338,8 +338,9 @@ function sendQuestion() {
     // 清空输入框
     $('#question-input').val('');
     
-    // 显示加载状态
-    showLoading();
+    // 只显示中断按钮，不再使用全局加载状态
+    // 取消调用showLoading();
+    showStopButton();
     
     // 创建一个机器人消息占位符
     const botMessageId = `bot-message-${Date.now()}`;
@@ -348,32 +349,64 @@ function sendQuestion() {
     // 设置等待状态
     isWaitingForResponse = true;
     
-    // 改用fetch发送POST请求
-    fetch('/api/ask_sync', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            question: question,
-            session_id: sessionId
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        let fullResponse = data.answer || '';
-        updateBotMessage(botMessageId, fullResponse);
+    // 取消之前的流
+    if (currentStream) {
+        currentStream.close();
+    }
+    
+    // 使用事件源实现流式响应
+    const url = `/api/ask?question=${encodeURIComponent(question)}&session_id=${sessionId}`;
+    currentStream = new EventSource(url);
+    
+    // 存储完整响应
+    let fullResponse = "";
+    
+    // 监听消息事件
+    currentStream.onmessage = function(event) {
+        try {
+            const data = JSON.parse(event.data);
+            if (data.content) {
+                fullResponse += data.content;
+                updateBotMessage(botMessageId, fullResponse);
+                scrollToBottom();
+            }
+        } catch (e) {
+            console.error('解析事件数据失败:', e);
+        }
+    };
+    
+    // 监听错误
+    currentStream.onerror = function(error) {
+        console.error('流式响应错误:', error);
+        // 关闭流
+        currentStream.close();
+        currentStream = null;
+        
+        // 完成响应 - 保留已生成的内容
+        if (!fullResponse) {
+            updateBotMessage(botMessageId, "很抱歉，我暂时无法回答这个问题，请稍后再试。");
+        } else {
+            // 如果有已生成的内容，添加中断标记但保留内容
+            const currentContent = fullResponse + "\n\n<em>（连接中断）</em>";
+            updateBotMessage(botMessageId, currentContent);
+        }
         isWaitingForResponse = false;
-        hideLoading();
-    })
-    .catch(error => {
-        console.error('获取回答失败:', error);
-        updateBotMessage(botMessageId, "很抱歉，我暂时无法回答这个问题，请稍后再试。");
+        // 移除消息的加载状态
+        $(`#${botMessageId}`).removeClass('loading');
+        hideStopButton();
+    };
+    
+    // 监听流结束
+    currentStream.addEventListener('end', function() {
+        // 关闭流
+        currentStream.close();
+        currentStream = null;
         isWaitingForResponse = false;
-        hideLoading();
+        // 移除消息的加载状态
+        $(`#${botMessageId}`).removeClass('loading');
+        hideStopButton();
     });
     
-    // 已经在fetch的catch中处理了错误
     // 滚动到底部
     scrollToBottom();
 }
@@ -384,7 +417,7 @@ function createBotMessagePlaceholder(id) {
     const timeString = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     
     const botMessage = `
-        <div class="message bot-message" id="${id}">
+        <div class="message bot-message loading" id="${id}">
             <div class="avatar">
                 <i class="fas fa-robot"></i>
             </div>
@@ -394,7 +427,12 @@ function createBotMessagePlaceholder(id) {
                     <span class="message-time">${timeString}</span>
                 </div>
                 <div class="message-text">
-                    <p class="typing"></p>
+                    <div class="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <p class="typing">正在思考...</p>
                 </div>
             </div>
         </div>
@@ -420,6 +458,10 @@ function updateBotMessage(id, text) {
     
     const htmlContent = marked.parse(formattedText);
     $(`#${id} .message-text`).html(htmlContent);
+    
+    // 移除加载状态
+    $(`#${id}`).removeClass('loading');
+    
     scrollToBottom();
 }
 
@@ -512,9 +554,22 @@ function addMessage(text, sender, timestamp) {
             messageContent = `<p>${safeText.replace(/\n/g, '<br>')}</p>`;
         }
         
+        // 检测消息长度并应用不同的类 - 根据长度使用不同的类名
+        let messageCompactClass = '';
+        if (safeText.length <= 5) {
+            // 特短消息 (5个字符或更少)
+            messageCompactClass = 'short-message very-short-message';
+        } else if (safeText.length <= 10) {
+            // 短消息 (6-10个字符)
+            messageCompactClass = 'short-message';
+        } else if (safeText.length <= 20) {
+            // 中等长度消息 (11-20个字符)
+            messageCompactClass = 'medium-message';
+        }
+        
         // 创建并添加消息
         const message = `
-            <div class="message ${messageClass} animate__animated animate__fadeIn">
+            <div class="message ${messageClass} ${messageCompactClass} animate__animated animate__fadeIn">
                 <div class="avatar">
                     ${avatar}
                 </div>
@@ -632,7 +687,7 @@ function renderHistoryList() {
     historyContainer.empty();
     
     if (chatHistory.length === 0) {
-        historyContainer.html('<div class="text-center text-muted py-3">暂无历史记录</div>');
+        historyContainer.html('<div class="empty-history"><i class="fas fa-history"></i><br>暂无历史记录</div>');
         return;
     }
     
@@ -643,28 +698,103 @@ function renderHistoryList() {
         // 确保时间戳是有效的
         const timestamp = chat.timestamp ? chat.timestamp : Date.now();
         const date = new Date(timestamp);
-        const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+        
+        // 格式化日期 - 如果是今天显示时间，如果是其他日期显示日期
+        let formattedDate;
+        const today = new Date();
+        if (date.getDate() === today.getDate() && 
+            date.getMonth() === today.getMonth() && 
+            date.getFullYear() === today.getFullYear()) {
+            // 今天的对话显示时间
+            formattedDate = `今天 ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+        } else {
+            // 其他日期显示完整日期
+            formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+        }
         
         // 确保标题是字符串并去除HTML标签
         let title = chat.title || '未命名对话';
         title = typeof title === 'string' ? title.replace(/<[^>]*>?/gm, '') : '未命名对话';
+        
+        // 提取对话消息数量以显示在标题中
+        const messageCount = chat.messages ? chat.messages.length : 0;
         
         const historyItem = $('<div>')
             .addClass('history-item')
             .attr('data-index', i)
             .html(`
                 <div class="history-title">${title}</div>
-                <div class="history-date">${formattedDate}</div>
-            `)
-            .click(function() {
+                <div class="history-date"><i class="far fa-comment-dots"></i> ${messageCount}条消息 · ${formattedDate}</div>
+                <div class="history-delete" title="删除此对话"><i class="fas fa-times"></i></div>
+            `);
+        
+        // 点击历史项加载对话
+        historyItem.click(function(e) {
+            // 检查是否点击了删除按钮
+            if ($(e.target).closest('.history-delete').length) {
+                e.stopPropagation(); // 阻止事件冒泡
+                deleteHistoryItem(i);
+            } else {
                 loadChatFromHistory(i);
-            });
+            }
+        });
             
         if (i === currentChatIndex) {
             historyItem.addClass('active');
         }
         
         historyContainer.append(historyItem);
+    }
+}
+
+// 删除历史记录项
+function deleteHistoryItem(index) {
+    // 显示确认对话框
+    if (confirm('确定要删除这条对话历史记录吗？')) {
+        // 如果删除的是当前对话
+        if (index === currentChatIndex) {
+            // 清空当前聊天界面
+            $('#chat-history').empty();
+            
+            // 添加欢迎消息
+            const welcomeMessage = `
+                <div class="message bot-message animate__animated animate__fadeIn">
+                    <div class="avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-name">文化智友</span>
+                            <span class="message-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                        </div>
+                        <div class="message-text">
+                            <p><strong>欢迎来到「文化智友」</strong></p>
+                            <p>您的中国传统文化知识助手，探索五千年文化智慧。</p>
+                            <p>请问您想了解什么中国传统文化知识呢？</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            $('#chat-history').append(welcomeMessage);
+            
+            // 添加每日诗词
+            showDailyPoem();
+            
+            // 重置当前聊天索引
+            currentChatIndex = -1;
+        }
+        
+        // 从历史记录中删除
+        chatHistory.splice(index, 1);
+        
+        // 保存到本地存储
+        localStorage.setItem('culturalChatHistory', JSON.stringify(chatHistory));
+        
+        // 更新历史记录UI
+        renderHistoryList();
+        
+        // 显示提示
+        showToast('历史记录已删除');
     }
 }
 
@@ -690,7 +820,7 @@ function loadChatFromHistory(index) {
                             <span class="message-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                         </div>
                         <div class="message-text">
-                            <p>正在查看历史对话 - ${chat.title || '未命名对话'}</p>
+                            <p><strong>正在查看历史对话</strong> - ${chat.title || '未命名对话'}</p>
                         </div>
                     </div>
                 </div>
@@ -880,14 +1010,23 @@ function clearCurrentChat() {
                         <span class="message-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                     </div>
                     <div class="message-text">
-                        <p>欢迎来到「文化智友」，您的中国传统文化知识助手！</p>
-                        <p>我精通中国历史、传统节日、诗词文学、传统艺术、哲学思想、古代科技、传统医学、神话传说、传统建筑和手工艺等领域。</p>
+                        <p><strong>欢迎来到「文化智友」</strong></p>
+                        <p>您的中国传统文化知识助手，探索五千年文化智慧。</p>
                         <p>请问您想了解什么中国传统文化知识呢？</p>
                     </div>
                 </div>
             </div>
         `;
         $('#chat-history').append(welcomeMessage);
+        
+        // 显示每日诗词
+        setTimeout(() => {
+            showDailyPoem();
+            // 如果有二十四节气信息，也重新显示
+            if (typeof showSolarTermInfo === 'function') {
+                showSolarTermInfo();
+            }
+        }, 200);
         
         // 创建新对话
         currentChatIndex = -1;
@@ -968,9 +1107,36 @@ function exportCurrentChat() {
 }
 
 // 分享当前对话
-function shareCurrentChat() {
-    // 实际项目中可以使用Web Share API或生成可分享的链接
-    alert('分享功能待实现，敬请期待！');
+async function shareCurrentChat() {
+    try {
+        // 生成对话纯文本摘要
+        let text = '我在“文化智友”与AI探讨中国传统文化：\n\n';
+        $('#chat-history .message').each(function() {
+            const isUser = $(this).hasClass('user-message');
+            const sender = isUser ? '我' : '文化智友';
+            const content = $(this).find('.message-text').text().trim();
+            if (content) {
+                text += `【${sender}】${content}\n\n`;
+            }
+        });
+        const title = document.title || '文化智友';
+        const url = window.location.origin + '/chat';
+
+        if (navigator.share) {
+            await navigator.share({ title, text, url });
+        } else {
+            await navigator.clipboard.writeText(`${title}\n${text}\n${url}`);
+            showToast('已复制对话与链接，可粘贴分享');
+        }
+    } catch (e) {
+        console.error('分享失败:', e);
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            showToast('已复制页面链接');
+        } catch (e2) {
+            alert('分享未完成，请手动复制链接。');
+        }
+    }
 }
 
 // 打印当前对话

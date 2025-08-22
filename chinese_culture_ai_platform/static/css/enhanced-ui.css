@@ -233,7 +233,11 @@ body {
     margin: 20px 0;
     box-shadow: var(--subtle-shadow);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    max-height: none;
+    height: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .dark-theme .daily-poem-card {
@@ -263,6 +267,9 @@ body {
     line-height: 1.8;
     margin-bottom: 10px;
     text-align: center;
+    width: 100%;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 .daily-poem-author {
@@ -279,4 +286,7 @@ body {
     border-top: 1px dashed var(--border-color);
     padding-top: 10px;
     margin-top: 5px;
+    width: 100%;
+    white-space: normal;
+    word-wrap: break-word;
 }

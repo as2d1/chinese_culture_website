@@ -1,9 +1,15 @@
 /* 减小对话文字间距 */
 
-/* 确保消息文本中段落间距适中 */
+/* 调整段落之间的距离 */
+.message-text p + p {
+    margin-top: 0.5px !important; /* 显著减少段落间距 */
+}
+
+/* 设置文本的整体格式 */
 .message-text p {
-    margin-bottom: 6px !important; /* 强制覆盖其他样式 */
-    line-height: 1.5;
+    margin-bottom: 1px !important; /* 强制覆盖其他样式 */
+    line-height: 1.3 !important; /* 减小行高 */
+    letter-spacing: -0.01em; /* 稍微减小字母间距 */
 }
 
 /* 最后一个段落无底部边距 */
@@ -13,7 +19,8 @@
 
 /* 调整列表项的间距 */
 .message-text li {
-    margin-bottom: 5px;
+    margin-bottom: 2px; /* 减小列表项间距 */
+    line-height: 1.3 !important; /* 保持一致的行高 */
 }
 
 /* 调整标题和段落之间的间距 */
@@ -23,18 +30,13 @@
 .message-text h4 + p,
 .message-text h5 + p,
 .message-text h6 + p {
-    margin-top: 5px;
-}
-
-/* 确保段落之间有足够的区分度 */
-.message-text p + p {
-    margin-top: 3px;
+    margin-top: 2px !important; /* 减小标题与段落之间的间距 */
 }
 
 /* 调整特殊内容的间距 */
 .message-text pre,
 .message-text blockquote,
 .message-text .culture-quote {
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin-bottom: 6px !important;
+    margin-top: 6px !important;
 }

@@ -1,0 +1,66 @@
+/* 欢迎页面滚动条修复 - 增强版 */
+
+/* 修改：不使用滚动条，直接显示全部内容 */
+.welcome-section .section-content {
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+    position: relative;
+}
+
+/* 修改：确保特定部分不使用滚动条 */
+.poem-section .section-content,
+.solar-term-section .section-content {
+    overflow: visible;
+    max-height: none;
+}
+
+/* 禁用滚动条 */
+.welcome-section .section-content::-webkit-scrollbar {
+    width: 0;
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+.welcome-section .section-content::-webkit-scrollbar-track {
+    display: none;
+    visibility: hidden !important;
+}
+
+.welcome-section .section-content::-webkit-scrollbar-thumb {
+    display: none;
+    visibility: hidden !important;
+}
+
+.welcome-section .section-content::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+/* 确保Firefox中也没有滚动条 */
+.welcome-section .section-content {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    /* 不显示滚动条 */
+    overflow: visible;
+}
+
+/* 添加一些内边距以确保内容不会太靠近边缘 */
+#welcome-poem-card, 
+#welcome-solar-term {
+    padding-bottom: 10px;
+}
+
+/* 确保滚动区域可见 - 添加一些内容边框 */
+.welcome-poem-content, 
+.welcome-solar-term-description {
+    max-height: none;
+}
+
+/* 确保滚动条在悬停时可见 */
+.welcome-section:hover .section-content::-webkit-scrollbar-thumb {
+    visibility: visible;
+    opacity: 1;
+}

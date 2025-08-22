@@ -1,0 +1,12 @@
+{
+  "name": "文化智友 - 中国传统文化AI助手",
+  "short_name": "文化智友",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F9F3E9",
+  "theme_color": "#8B0000",
+  "description": "面向中国传统文化的AI问答平台，探索诗词、历史、节气与传统智慧。",
+  "lang": "zh-CN",
+  "icons": []
+}

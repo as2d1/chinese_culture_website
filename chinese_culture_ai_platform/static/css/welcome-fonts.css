@@ -1,0 +1,55 @@
+/* 对话界面欢迎词的字体多样化 */
+
+/* 欢迎消息的标题部分使用华丽的字体 */
+.bot-message .message-text p:first-child {
+    font-family: "STXingkai", "华文行楷", "STKaiti", "楷体", KaiTi, serif;
+    font-size: 1.3em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+/* 欢迎消息的中部内容使用优雅的宋体 */
+.bot-message .message-text p:nth-child(2) {
+    font-family: "STSong", "华文宋体", "SimSun", "宋体", serif;
+    font-size: 1.05em;
+    line-height: 1.7;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+/* 欢迎消息的最后部分使用现代雅黑 */
+.bot-message .message-text p:last-child {
+    font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+    font-weight: 500;
+    margin-top: 15px;
+}
+
+/* 对所有机器人消息应用多样字体，但保持整体一致性 */
+.bot-message .message-text {
+    line-height: 1.7;
+}
+
+/* 强调和重点内容使用楷体 */
+.bot-message .message-text strong {
+    font-family: "STXingkai", "华文行楷", "STKaiti", "楷体", KaiTi, serif;
+    font-weight: normal;
+    font-size: 1.1em;
+    color: var(--primary-color);
+}
+
+/* 确保欢迎消息有良好的间距 */
+.bot-message:first-child .message-text {
+    padding: 5px 0;
+}
+
+/* 添加一些装饰元素 */
+.bot-message:first-child .message-text p:first-child:after {
+    content: "";
+    display: block;
+    width: 50%;
+    height: 1px;
+    background: linear-gradient(to right, var(--primary-color), transparent);
+    margin: 10px 0;
+}

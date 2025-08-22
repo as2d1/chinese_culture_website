@@ -400,7 +400,7 @@ body {
 /* 消息样式 */
 .message {
     display: flex;
-    margin-bottom: 25px;
+    margin-bottom: 18px; /* 合适的消息间垂直距离 */
     max-width: 85%;
     opacity: 0;
     animation: fadeInUp 0.5s forwards;
@@ -456,7 +456,7 @@ body {
 }
 
 .message-content {
-    padding: 15px 15px 12px 15px; /* 减小底部内边距 */
+    padding: 12px 16px; /* 平衡的内边距 */
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     transition: all var(--transition-speed) ease;

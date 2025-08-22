@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>文化智友 - 中国传统文化知识AI问答平台</title>
+    <meta name="description" content="文化智友：面向中国传统文化的AI问答平台，涵盖历史朝代、传统节日、诗词文学、二十四节气等内容，提供流畅对话与每日诗词。">
+    <meta name="theme-color" content="#8B0000">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
+    <meta property="og:title" content="文化智友 - 中国传统文化知识AI问答平台">
+    <meta property="og:description" content="探索中华文化的智慧之旅：历史、节气、诗词与传统艺术的一站式AI助手。">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_CN">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📜</text></svg>">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/additional-styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/transitions.css') }}">
@@ -14,14 +22,107 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/modules.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/text-spacing.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/poem-display-fix.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/poem-wrapper-fix.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tight-text-spacing.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stop-button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/history-format-fix.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/local-loading.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/solar-term-card.css') }}">
+    <!-- 注释掉之前过于极端的样式 -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/bubble-compact.css') }}"> -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/extreme-compact-bubbles.css') }}"> -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/minimal-message-spacing.css') }}"> -->
+    <!-- 使用新的平衡样式 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/balanced-message-bubbles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bubble-width-adjustments.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/input-send-fix.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dark-theme-enhanced.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/welcome-fonts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/critical-fixes.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bot-response-uniform.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animation-fix.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+    <style id="chat-font-reset">
+        /* 统一对话框字体为宋体，文本颜色为黑色 */
+        #chat-history .message-text,
+        #chat-history .message-text *,
+        #chat-history .welcome-message,
+        #chat-history .welcome-message * {
+            color: #000 !important;
+            font-family: "宋体", SimSun, STSong, "Noto Serif SC", serif !important;
+            font-size: 16px !important;
+            line-height: 1.3 !important;
+        }
+        /* 缩小段落与列表间距，整体更紧凑 */
+        #chat-history .message-text p,
+        #chat-history .message-text ul,
+        #chat-history .message-text ol,
+        #chat-history .welcome-message p,
+        #chat-history .welcome-message ul,
+        #chat-history .welcome-message ol {
+            margin: 0.15em 0 !important;
+        }
+        #chat-history .message-text li,
+        #chat-history .welcome-message li {
+            margin: 0.1em 0 !important;
+        }
+        /* 缩小标题间距，避免突兀的大空白 */
+        #chat-history .message-text h1,
+        #chat-history .message-text h2,
+        #chat-history .message-text h3,
+        #chat-history .message-text h4,
+        #chat-history .message-text h5,
+        #chat-history .message-text h6 {
+            margin: 0.25em 0 !important;
+        }
+        /* 对话页欢迎卡片：风格对齐节气/诗词卡片 */
+        .chat-welcome-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .chat-welcome-title {
+            font-weight: 700;
+            margin: 0 0 8px 0;
+            color: var(--primary-color);
+        }
+        .chat-welcome-text { opacity: 0.9; }
+        .chat-welcome-close {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            border: none;
+            background: transparent;
+            color: inherit;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+            padding: 4px;
+        }
+        .chat-welcome-close:hover { opacity: 0.7; }
+        /* 中断状态样式 */
+        .response-stopped {
+            color: #666 !important;
+            font-size: 14px !important;
+            margin-top: 8px !important;
+            padding-top: 5px !important;
+            border-top: 1px dashed #ddd;
+        }
+        .response-interrupted {
+            opacity: 0.9;
+        }
+    </style>
 </head>
 <body>
     <!-- 浮动侧边栏按钮 - 始终可见 -->
-    <div class="sidebar-floating-button" id="sidebar-float-toggle">
+    <div class="sidebar-floating-button" id="sidebar-float-toggle" role="button" aria-label="展开或收起侧边栏">
         <i class="fas fa-bars"></i>
     </div>
     
@@ -95,13 +196,13 @@
                         <i class="fas fa-comments"></i> 当前对话
                     </div>
                     <div class="chat-actions">
-                        <button id="theme-toggle" class="btn-icon" title="切换主题">
+                        <button id="theme-toggle" class="btn-icon" title="切换主题" aria-label="切换主题">
                             <i class="fas fa-moon"></i>
                         </button>
-                        <button id="share-btn" class="btn-icon" title="分享对话">
+                        <button id="share-btn" class="btn-icon" title="分享对话" aria-label="分享对话">
                             <i class="fas fa-share-alt"></i>
                         </button>
-                        <button id="print-btn" class="btn-icon" title="打印对话">
+                        <button id="print-btn" class="btn-icon" title="打印对话" aria-label="打印对话">
                             <i class="fas fa-print"></i>
                         </button>
                     </div>
@@ -110,13 +211,7 @@
                 <div class="chat-container">
                     <!-- 对话历史 -->
                     <div id="chat-history" class="chat-history">
-                        <!-- 欢迎信息 -->
-                        <div class="welcome-message animate__animated animate__fadeIn">
-                            <h3><i class="fas fa-book-open"></i> 欢迎来到「文化智友」</h3>
-                            <p>您的中国传统文化知识助手，探索五千年文化智慧</p>
-                        </div>
-                        
-                        <!-- 欢迎消息 -->
+                        <!-- 欢迎消息（对话气泡） -->
                         <div class="message bot-message animate__animated animate__fadeIn">
                             <div class="avatar">
                                 <i class="fas fa-robot"></i>
@@ -127,9 +222,8 @@
                                     <span class="message-time">刚刚</span>
                                 </div>
                                 <div class="message-text">
-                                    <p>欢迎来到「文化智友」，您的中国传统文化知识助手！</p>
-                                    <p>我精通中国历史、传统节日、诗词文学、传统艺术、哲学思想、古代科技、传统医学、神话传说、传统建筑和手工艺等领域。</p>
-                                    <p>请问您想了解什么中国传统文化知识呢？</p>
+                                    <p><strong>文化智友为您服务</strong></p>
+                                    <p>这里可以提问历史、节气、诗词、艺术等传统文化话题，直接输入问题，或从左侧分类挑选一个开始吧。</p>
                                 </div>
                             </div>
                         </div>
@@ -139,7 +233,7 @@
                     <div class="input-container">
                         <form id="question-form">
                             <div class="input-group">
-                                <span class="input-group-text bg-transparent border-right-0">
+                                <span class="input-group-text bg-transparent">
                                     <i class="fas fa-search"></i>
                                 </span>
                                 <input type="text" id="question-input" class="form-control" placeholder="请输入您的问题..." required>
@@ -186,6 +280,11 @@
     <button id="back-to-top" class="btn-icon">
         <i class="fas fa-arrow-up"></i>
     </button>
+    
+    <!-- 停止生成按钮 -->
+    <div id="stop-button" class="stop-button">
+        <i class="fas fa-stop-circle"></i>
+    </div>
     
     <!-- 加载动画 -->
     <div id="loading-overlay" class="d-none">
@@ -238,8 +337,21 @@
     <script src="{{ url_for('static', filename='js/sidebar-reset.js') }}"></script>
     <script src="{{ url_for('static', filename='js/ui-enhancements.js') }}"></script>
     <script src="{{ url_for('static', filename='js/sidebar-fix.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/daily-poem.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/solar-terms-data.js') }}"></script>
     <script src="{{ url_for('static', filename='js/solar-terms.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/poem-data.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/daily-poem.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/send-button-fix.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/font-animation-helpers.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/interrupt-response.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+    // 注册 Service Worker（PWA）
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/sw.js');
+        });
+    }
+    </script>
 </body>
 </html>

@@ -32,30 +32,6 @@ function showDailyPoem() {
         $('.daily-poem-card').css('height', 'auto');
         $('.daily-poem-card').css('max-height', 'none');
         $('.daily-poem-card').css('overflow', 'visible');
-
-        // 作为兜底：在每日诗词后插入欢迎卡（若还未插入且未被新版本关闭）
-        const dismissed = localStorage.getItem('chatWelcomeDismissedV2') === 'true';
-        if ($('.chat-welcome-card').length === 0 && !dismissed) {
-            const welcomeCard = `
-                <div class="chat-welcome-card animate__animated animate__fadeIn">
-                    <button class="chat-welcome-close" title="关闭" aria-label="关闭欢迎提示">&times;</button>
-                    <div class="chat-welcome-title"><i class="fas fa-handshake"></i> 欢迎使用文化智友</div>
-                    <div class="chat-welcome-text">
-                        这里可提问历史、节气、诗词、艺术、哲学等传统文化主题。直接输入问题，或从左侧分类快速开始。
-                    </div>
-                </div>
-            `;
-            if ($('.daily-poem-card').length > 0) {
-                $('.daily-poem-card').last().after(welcomeCard);
-            } else {
-                $('#chat-history').prepend(welcomeCard);
-            }
-            // 绑定关闭（委托）并记录新版本关闭标记
-            $(document).on('click', '.chat-welcome-close', function() {
-                $(this).closest('.chat-welcome-card').slideUp(200, function() { $(this).remove(); });
-                try { localStorage.setItem('chatWelcomeDismissedV2', 'true'); } catch (e) {}
-            });
-        }
     }, 100);
 }
 

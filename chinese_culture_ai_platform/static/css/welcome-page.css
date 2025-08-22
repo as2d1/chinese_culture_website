@@ -1,0 +1,410 @@
+/* 欢迎页面样式 */
+
+/* 基本页面布局 */
+.welcome-page {
+    background-image: url('../images/chinese_pattern_bg.png'), linear-gradient(120deg, #f5e1cb, #fdf5e8);
+    background-blend-mode: overlay;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* 在顶部和底部之间平均分配空间 */
+    align-items: center;
+    padding: 20px 15px 30px 15px; /* 增加底部内边距 */
+}
+
+.welcome-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* 减小间距 */
+}
+
+/* 页面标题样式 */
+.welcome-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.welcome-header h1 {
+    color: var(--primary-color);
+    font-size: 3rem;
+    font-family: "STKaiti", "KaiTi", serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.welcome-header p {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+/* 文化内容部分 */
+.cultural-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px; /* 调整最大宽度 */
+    margin: 0 auto;
+}
+
+.welcome-section {
+    flex: 0 1 calc(45% - 15px); /* 固定比例，自动计算宽度 */
+    min-width: 400px; /* 最小宽度 */
+    width: 45%; /* 设置统一宽度 */
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    overflow: visible;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
+    display: flex; /* 使用flexbox布局 */
+    flex-direction: column; /* 垂直排列 */
+}
+
+.welcome-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.section-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 18px; /* 减小内边距 */
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    border-radius: 20px 20px 0 0; /* 只有顶部圆角 */
+    height: 50px; /* 固定高度 */
+    box-sizing: border-box; /* 确保内边距不会增加总尺寸 */
+}
+
+.section-header i {
+    margin-right: 10px;
+}
+
+.section-content {
+    padding: 25px;
+}
+
+/* 诗词部分样式 */
+.poem-section .section-content {
+    background-image: url('../images/paper_texture.png');
+    background-size: cover;
+}
+
+/* 强制显示滚动条的额外样式 */
+.poem-section .section-content::-webkit-scrollbar,
+.solar-term-section .section-content::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.poem-section .section-content::-webkit-scrollbar-track,
+.solar-term-section .section-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.poem-section .section-content::-webkit-scrollbar-thumb,
+.solar-term-section .section-content::-webkit-scrollbar-thumb {
+    background: var(--primary-color, #8B0000);
+    border-radius: 4px;
+    opacity: 0.8;
+}
+
+.poem-section .section-content::-webkit-scrollbar-thumb:hover,
+.solar-term-section .section-content::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color, #A52A2A);
+}
+
+#welcome-poem-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* 减小间距 */
+    height: 100%; /* 填满父容器高度 */
+    max-height: none;
+    box-sizing: border-box; /* 确保内边距不会增加总尺寸 */
+}
+
+.welcome-poem-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.welcome-poem-content {
+    font-family: "STKaiti", "KaiTi", serif;
+    font-size: 1rem; /* 再减小字体大小 */
+    line-height: 1.5; /* 更紧凑的行高 */
+    text-align: center;
+    margin-bottom: 8px; /* 减小下边距 */
+    white-space: normal; /* 确保文本正常换行 */
+    flex: 1; /* 占用剩余空间 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 垂直居中 */
+}
+
+.welcome-poem-author {
+    text-align: right;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.welcome-poem-explanation {
+    padding-top: 8px;
+    border-top: 1px dashed var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.85rem; /* 减小字体大小 */
+    line-height: 1.4; /* 减小行高 */
+    margin-top: auto; /* 推到底部 */
+}
+
+/* 节气部分样式 */
+.solar-term-section .section-content {
+    background-image: url('../images/seasons_bg.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: visible;
+    height: 100%; /* 填满父容器高度 */
+    box-sizing: border-box; /* 确保内边距不会增加总尺寸 */
+}
+
+.solar-term-section .section-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, transparent 50%, rgba(255, 255, 255, 0.5));
+    z-index: 0;
+    border-radius: 0 0 20px 20px; /* 圆角与卡片一致 */
+}
+
+#welcome-solar-term {
+    color: var(--dark-color);
+    position: relative;
+    z-index: 1;
+    height: 100%; /* 填满父容器高度 */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box; /* 确保内边距不会增加总尺寸 */
+}
+
+.welcome-solar-term-name {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    font-family: "STKaiti", "KaiTi", serif;
+}
+
+.welcome-solar-term-date {
+    text-align: center;
+    color: var(--accent-color);
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.countdown {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    margin-left: 8px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(139, 0, 0, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(139, 0, 0, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(139, 0, 0, 0);
+    }
+}
+
+.welcome-solar-term-description {
+    margin-bottom: 8px;
+    line-height: 1.4; /* 更紧凑的行高 */
+    text-indent: 1.5em; /* 保持首行缩进 */
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 8px; /* 减小内边距 */
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    font-size: 0.9rem;
+    max-height: none;
+    flex: 1; /* 让描述部分占据更多空间 */
+}
+
+.welcome-solar-term-customs {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 0.9rem; /* 减小字体大小 */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-top: auto; /* 推到底部 */
+}
+
+.welcome-solar-term-customs strong {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.custom-tag {
+    display: inline-block;
+    padding: 5px 12px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin: 0 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 进入按钮 */
+.enter-button-container {
+    margin-top: 40px; /* 增加上方间距 */
+    text-align: center;
+    padding: 5px 0 15px 0; /* 增加内边距 */
+}
+
+.enter-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 60px; /* 进一步增加按钮内边距 */
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50px;
+    font-size: 1.4rem; /* 增加字体大小 */
+    text-decoration: none;
+    box-shadow: 0 5px 15px rgba(139, 0, 0, 0.3);
+    transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1); /* 更丝滑的过渡效果 */
+    position: relative;
+    overflow: hidden; /* 为光效准备 */
+}
+
+.enter-button:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(30deg);
+    transition: transform 0.8s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.enter-button:hover {
+    background-color: #a50000;
+    box-shadow: 0 10px 25px rgba(139, 0, 0, 0.5);
+    transform: translateY(-3px) scale(1.03); /* 更明显的悬浮效果 */
+    color: white;
+}
+
+.enter-button:hover:before {
+    opacity: 1;
+    transform: rotate(30deg) translate(10%, 10%); /* 光效动画 */
+}
+
+.enter-button span {
+    margin-right: 10px;
+}
+
+/* 页脚样式 */
+.welcome-footer {
+    margin-top: 5px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    padding: 5px 0;
+}
+
+/* 自定义动画 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatAnimation {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.welcome-solar-term-name {
+    animation: floatAnimation 3s ease-in-out infinite;
+}
+
+.custom-tag {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .welcome-header h1 {
+        font-size: 2.5rem;
+    }
+    
+    .welcome-section {
+        min-width: 100%;
+    }
+    
+    .enter-button {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+    }
+}

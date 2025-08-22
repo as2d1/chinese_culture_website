@@ -1,0 +1,78 @@
+/* 节气倒计时样式增强 */
+.solar-term-card .solar-term-date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.solar-term-card .date-text {
+    font-size: 16px;
+    color: #555;
+}
+
+.solar-term-card .countdown {
+    background-color: rgba(210, 180, 140, 0.2);
+    color: #8B4513;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid rgba(210, 180, 140, 0.3);
+}
+
+.solar-term-card .countdown.today {
+    background-color: rgba(178, 34, 34, 0.1);
+    color: #B22222;
+    border-color: rgba(178, 34, 34, 0.2);
+    font-weight: 600;
+}
+
+/* 为节气卡片添加传统风格装饰 */
+.solar-term-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(139, 69, 19, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.solar-term-card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    border-color: rgba(139, 69, 19, 0.2);
+}
+
+/* 添加装饰性角落 */
+.solar-term-card::before,
+.solar-term-card::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    opacity: 0.15;
+}
+
+.solar-term-card::before {
+    top: 10px;
+    right: 10px;
+    border-top: 2px solid #8B4513;
+    border-right: 2px solid #8B4513;
+}
+
+.solar-term-card::after {
+    bottom: 10px;
+    left: 10px;
+    border-bottom: 2px solid #8B4513;
+    border-left: 2px solid #8B4513;
+}
+
+/* 习俗标签美化 */
+.solar-term-customs .custom-tag {
+    transition: all 0.3s ease;
+}
+
+.solar-term-customs .custom-tag:hover {
+    background-color: rgba(139, 69, 19, 0.1);
+    transform: translateY(-2px);
+}
